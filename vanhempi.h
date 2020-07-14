@@ -12,11 +12,13 @@ public:
     Vanhempi(string soTu, string etunimi, string sukunimi, string puhNro, Osoite &osoite);
     ~Vanhempi();
 
+    void setPuhNro(string &puhNro);
+    string getPuhNro();
 
     void tulostaHenkiloTiedot() override;
 
 private:
-
+    string puhNro;
 };
 
 #endif // VANHEMPI_H

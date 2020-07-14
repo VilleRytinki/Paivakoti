@@ -47,6 +47,8 @@ void Paivakoti::lisaaPerhe(Perhe &perhe) {
 }
 
 void Paivakoti::poistaPerhe(string nimi) {
+    //Täällä tapahtuu jotain outoa terminate called after throwing an instance of 'std::bad_alloc'
+    //what():  std::bad_alloc
     for (itrPerhe = perheet.begin();itrPerhe != perheet.end();itrPerhe++) {
         if (itrPerhe->getPerheenNimi() == nimi) {
             perheet.erase(itrPerhe);

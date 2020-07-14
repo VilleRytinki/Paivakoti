@@ -34,8 +34,9 @@ string paikkaKunta;
 
 
 void lisaaHenkilo();
-void kysyOsoiteTiedot(Henkilo &henkilo);
-void kysyHenkiloTiedot(Henkilo &henkilo);
+void kysyOsoiteTiedot(Henkilo &vanhempi);
+void kysyHenkiloTiedot(Vanhempi &henkilo);
+void kysyHenkiloTiedot(Lapsi &lapsi);
 
 int main()
 {
@@ -115,7 +116,7 @@ int main()
     return 0;
 }
 
-void kysyOsoiteTiedot(Henkilo &henkilo) {
+void kysyOsoiteTiedot(Henkilo &vanhempi) {
 
 
     cout << "\nAnna osoitetiedot:" << endl;
@@ -129,12 +130,12 @@ void kysyOsoiteTiedot(Henkilo &henkilo) {
 
     osoite =*new Osoite(katuOsoite,postiNro,paikkaKunta);
 
-    henkilo.setOsoite(osoite);
+    vanhempi.setOsoite(osoite);
 
 
 }
 
-void kysyHenkiloTiedot(Henkilo &henkilo) {
+void kysyHenkiloTiedot(Vanhempi &henkilo) {
 
     cout << "sosiaaliturvatunnus: ";
     getline(cin,soTu);
@@ -149,6 +150,24 @@ void kysyHenkiloTiedot(Henkilo &henkilo) {
     henkilo.setEtunimi(etunimi);
     henkilo.setSukunimi(sukunimi);
     henkilo.setPuhNro(puhNro);
+}
+
+void kysyHenkiloTiedot(Lapsi &lapsi) {
+
+    cout << "sosiaaliturvatunnus: ";
+    getline(cin,soTu);
+    cout << "etunimi: ";
+    getline(cin,etunimi);
+    cout << "sukunimi: ";
+    getline(cin,sukunimi);
+    cout << "Ryhmän nimi: ";
+    getline(cin,ryhma);
+
+    lapsi.setSotu(soTu);
+    lapsi.setEtunimi(etunimi);
+    lapsi.setSukunimi(sukunimi);
+    lapsi.setRyhma(ryhma);
+
 }
 
 void lisaaHenkilo() {
@@ -187,7 +206,4 @@ void lisaaHenkilo() {
     }
 }
 
-void etsiPerhe(string nimi) {
-    cout << "Anna perheen nimi(esim. Virtanen):" ;
-    getline(cin,perheenNimi);
-}
+

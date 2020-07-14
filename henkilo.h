@@ -11,8 +11,7 @@ class Henkilo
 public:
     Henkilo();
     Henkilo(string soTu, string etunimi, string sukunimi);
-    Henkilo(string soTu, string etunimi, string sukunimi, string puhNro);
-    Henkilo(string soTu, string etunimi, string sukunimi, string puhNro, Osoite &osoite);
+    Henkilo(string soTu, string etunimi, string sukunimi, Osoite &osoite);
     virtual ~Henkilo();
 
     void setSotu(string &soTu);
@@ -23,8 +22,7 @@ public:
     string getSukunimi();
     void setOsoite(Osoite &osoite);
     Osoite getOsoite();
-    void setPuhNro(string &puhNro);
-    string getPuhNro();
+
 
     void kysyOsoiteTiedot();
 
@@ -35,7 +33,7 @@ private:
     string etunimi;
     string sukunimi;
     Osoite osoite;
-    string puhNro;
+
 
 };
 

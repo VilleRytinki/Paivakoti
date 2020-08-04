@@ -16,22 +16,26 @@ public:
     string getPerheenNimi();
     void setPerheenID(int perheID);
     int getPerheID();
-    void lisaaVanhempi(Vanhempi &vanhempi);
-    void poistaVanhempi(Vanhempi &vanhempi);
-    vector<Vanhempi>::iterator etsiVanhempi(string soTu);
+
 
     //lista<Vanhempi> getListaVanhemmista();
 
 
     void lisaaLapsi(Lapsi &lapsi);
     void poistaLapsi(Lapsi &lapsi);
+    void lisaaVanhempi(Vanhempi &vanhempi);
+    void poistaVanhempi(Vanhempi &vanhempi);
 
     //vector<Lapsi> getListaLapsista();
 
-    void etsiLapsenTiedot(string sotU);
+    void muokkaaLapsenTietoja(string sotU);
     void etsiLapsenTiedot(string etunimi, string sukunimi);
     void muokkaaVanhemmanTietoja(string soTu);
     void etsiVanhemmanTiedot(string etunimi,string sukunimi);
+
+    vector<Vanhempi>::iterator etsiVanhempi(string soTu);
+
+    vector<Lapsi>::iterator etsiLapsi(string soTu);
 
     void tulostaPerhe();
     void tulostaVanhemmat();

@@ -20,6 +20,15 @@ public:
 
     void tulostaHenkiloTiedot() override;
 
+    inline bool operator == (const Lapsi &lapsi) {
+        return lapsi.soTu == soTu;
+    }
+
+    inline bool operator != (const Lapsi &lapsi) {
+        return lapsi.soTu != soTu;
+    }
+
+
     string soTu;
 private:
     string ryhma;

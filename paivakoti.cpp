@@ -97,7 +97,7 @@ void Paivakoti::etsiPerhe(string nimi) {
                         cout << "Syota sen vanhemman sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
                         getline(cin,soTu);
                         itrPerhe->muokkaaVanhemmanTietoja(soTu);
-                    }
+                    } //...tänne lapsen toiminta..
 
                 }
             }

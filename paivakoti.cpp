@@ -1,6 +1,10 @@
 #include "paivakoti.h"
 #include "perhe.h"
+#include "tietokantautils.h"
+
 #include <iostream>
+#include <exception>
+
 
 vector<Perhe>::iterator itrPerhe;
 
@@ -35,6 +39,10 @@ string Paivakoti::getPaivaKotiID() {
 }
 
 void Paivakoti::tulostaPaivakoti() {
+    if (perheet.empty()) {
+        throw runtime_error("Tietokanta tyhja.");
+    }
+
     for (itrPerhe = perheet.begin();itrPerhe != perheet.end();itrPerhe++) {
         itrPerhe->tulostaPerhe();
 
@@ -65,11 +73,35 @@ void Paivakoti::poistaPerhe(int perheID) {
 }
 
 void Paivakoti::etsiPerhe(string nimi) {
+    string toiminta;
     int osumia= 0;
     for (itrPerhe = perheet.begin();itrPerhe != perheet.end(); itrPerhe++) {
         if (itrPerhe->getPerheenNimi() == nimi ){
             itrPerhe->tulostaPerhe();
             osumia++;
+
+            while (true) {
+                cout << "Haluatko lisata perheenjasenen tai muokata henkilotietoja tietoja? |lisaa|muokkaa|peruuta :";
+                getline(cin,toiminta);
+
+                if (toiminta == "peruuta") {
+                    break;
+                } else if (toiminta == "lisaa") {
+                    TietokantaUtils::lisaaHenkilo(*itrPerhe);
+                } else if (toiminta == "muokkaa") {
+                    cout << "Haluatko muokata vanhemman vai lapsen tietoja? |vanhempi|lapsi :";
+                    getline(cin,toiminta);
+                    if (toiminta == "vanhempi") {
+                        string soTu;
+                        itrPerhe->tulostaVanhemmat();
+                        cout << "Syota sen vanhemman sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
+                        getline(cin,soTu);
+                        itrPerhe->muokkaaVanhemmanTietoja(soTu);
+                    }
+
+                }
+            }
+
         }
     }
 

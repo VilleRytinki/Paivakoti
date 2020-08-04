@@ -14,11 +14,24 @@ public:
 
     void setPuhNro(string &puhNro);
     string getPuhNro();
+    void setSotu(string &soTu);
+    string getSotu();
 
     void tulostaHenkiloTiedot() override;
 
+    inline bool operator == (const Vanhempi &vanhempi) {
+        return vanhempi.soTu == soTu;
+    }
+
+    inline bool operator != (const Vanhempi &vanhempi) {
+        return vanhempi.soTu != soTu;
+    }
+
+    string soTu;
+
 private:
     string puhNro;
+
 };
 
 #endif // VANHEMPI_H

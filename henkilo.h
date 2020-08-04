@@ -10,8 +10,8 @@ class Henkilo
 {
 public:
     Henkilo();
-    Henkilo(string soTu, string etunimi, string sukunimi);
-    Henkilo(string soTu, string etunimi, string sukunimi, Osoite &osoite);
+    Henkilo(string etunimi, string sukunimi);
+    Henkilo(string etunimi, string sukunimi, Osoite &osoite);
     virtual ~Henkilo();
 
     void setSotu(string &soTu);
@@ -28,8 +28,10 @@ public:
 
     virtual void tulostaHenkiloTiedot();
 
+
+
 private:
-    string soTu;
+
     string etunimi;
     string sukunimi;
     Osoite osoite;

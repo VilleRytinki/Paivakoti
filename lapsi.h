@@ -15,7 +15,12 @@ public:
     void setRyhma(string &ryhma);
     string getRyhma();
 
+    void setSotu(string &soTu);
+    string getSotu();
+
     void tulostaHenkiloTiedot() override;
+
+    string soTu;
 private:
     string ryhma;
 };

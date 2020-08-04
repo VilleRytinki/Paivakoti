@@ -9,11 +9,12 @@
 #include "vanhempi.h"
 #include "perhe.h"
 #include "paivakoti.h"
+#include "tietokantautils.h"
 
 using namespace std;
-Osoite osoite;
+
 Paivakoti* paivakoti;
-Perhe perhe;
+
 
 string paivaKodinNimi;
 string paivaKodinID;
@@ -22,29 +23,18 @@ string perheenNimi;
 int perheID;
 
 string toiminta;
-string etunimi;
-string sukunimi;
-string soTu;
-string puhNro;
-string ryhma;
-
-string katuOsoite;
-string postiNro;
-string paikkaKunta;
 
 
-void lisaaHenkilo();
-void kysyOsoiteTiedot(Henkilo &vanhempi);
-void kysyHenkiloTiedot(Vanhempi &henkilo);
-void kysyHenkiloTiedot(Lapsi &lapsi);
+
+
 
 int main()
 {
-    cout << "Tervetuloa päivähoidon asiakastietojärjestelmään.\n";
-    cout << "Anna päiväkodin nimi: ";
+    cout << "Tervetuloa paivahoidon asiakastietojarjestelmaan.\n";
+    cout << "Anna paivakodin nimi: ";
     getline(cin,paivaKodinNimi);
 
-    cout << "Anna päiväkodin ID: ";
+    cout << "Anna paivakodin ID: ";
     getline(cin,paivaKodinID);
 
 
@@ -53,7 +43,7 @@ int main()
     while (true) {
 
 
-        cout << "Haluatko lisätä perheen, etsiä tietokannasta vai poistaa tietoja? Voit myös tulostaa päväkodin asiakkaiden tiedot. \n|lisää|etsi|poista|lopeta|tulosta|: ";
+        cout << "Haluatko lisata perheen, etsia tietokannasta vai poistaa tietoja? Voit myos tulostaa paivakodin asiakkaiden tiedot. \n|lisaa|etsi|poista|lopeta|tulosta|: ";
         getline(cin,toiminta);
 
         if(toiminta == "lopeta") {
@@ -62,14 +52,14 @@ int main()
             cout << "Anna perheen nimi(esim. Virtanen):" ;
             getline(cin,perheenNimi);
 
-            perhe = *new Perhe(perheenNimi);
+            Perhe perhe = *new Perhe(perheenNimi);
 
-            lisaaHenkilo();
+            TietokantaUtils::lisaaHenkilo(perhe);
 
             paivakoti->lisaaPerhe(perhe);
 
         } else if (toiminta == "etsi") {
-            cout << "Etsitäänkö nimellä vai ID numerolla? |nimi|ID|:";
+            cout << "Etsitaankö nimella vai ID numerolla? |nimi|ID|:";
             getline(cin,toiminta);
 
             if(toiminta == "nimi") {
@@ -79,14 +69,14 @@ int main()
                 paivakoti->etsiPerhe(perheenNimi);
 
             } else if (toiminta == "ID") {
-                cout << "Syötä perheen ID(esim. 1):";
+                cout << "Syota perheen ID(esim. 1):";
                 cin >> perheID;
 
                 paivakoti->etsiPerhe(perheID);
 
             }
         } else if (toiminta == "poista") {
-            cout << "Etsitäänkö nimellä vai ID numerolla? |nimi|ID|:";
+            cout << "Etsitaanko nimella vai ID numerolla? |nimi|ID|:";
             getline(cin,toiminta);
 
             if(toiminta == "nimi") {
@@ -96,14 +86,18 @@ int main()
                 paivakoti->poistaPerhe(perheenNimi);
 
             } else if (toiminta == "ID") {
-                cout << "Syötä perheen ID(esim. 1):";
+                cout << "Syota perheen ID(esim. 1):";
                 cin >> perheID;
 
                 paivakoti->poistaPerhe(perheID);
 
             }
         } else if (toiminta == "tulosta") {
-            paivakoti->tulostaPaivakoti();
+            try {
+                paivakoti->tulostaPaivakoti();
+            } catch (runtime_error e) {
+                cout << e.what() << "\n";
+            }
 
         } else {
             cout << "Komentoa ei tunnistettu";
@@ -116,94 +110,6 @@ int main()
     return 0;
 }
 
-void kysyOsoiteTiedot(Henkilo &vanhempi) {
 
-
-    cout << "\nAnna osoitetiedot:" << endl;
-    cout << "Katuosoite: ";
-    //cin.ignore();
-    getline(cin,katuOsoite);
-    cout << "Postinumero: ";
-    getline(cin,postiNro);
-    cout << "Paikkakunta: ";
-    getline(cin,paikkaKunta);
-
-    osoite =*new Osoite(katuOsoite,postiNro,paikkaKunta);
-
-    vanhempi.setOsoite(osoite);
-
-
-}
-
-void kysyHenkiloTiedot(Vanhempi &henkilo) {
-
-    cout << "sosiaaliturvatunnus: ";
-    getline(cin,soTu);
-    cout << "etunimi: ";
-    getline(cin,etunimi);
-    cout << "sukunimi: ";
-    getline(cin,sukunimi);
-    cout << "puhelinnumero|muodossa xxx-xxxxxxx|: ";
-    getline(cin,puhNro);
-
-    henkilo.setSotu(soTu);
-    henkilo.setEtunimi(etunimi);
-    henkilo.setSukunimi(sukunimi);
-    henkilo.setPuhNro(puhNro);
-}
-
-void kysyHenkiloTiedot(Lapsi &lapsi) {
-
-    cout << "sosiaaliturvatunnus: ";
-    getline(cin,soTu);
-    cout << "etunimi: ";
-    getline(cin,etunimi);
-    cout << "sukunimi: ";
-    getline(cin,sukunimi);
-    cout << "Ryhmän nimi: ";
-    getline(cin,ryhma);
-
-    lapsi.setSotu(soTu);
-    lapsi.setEtunimi(etunimi);
-    lapsi.setSukunimi(sukunimi);
-    lapsi.setRyhma(ryhma);
-
-}
-
-void lisaaHenkilo() {
-    while (true) {
-
-        cout << "\nHaluatko lisätä vanhemman vai lapsen?|vanhempi|lapsi|lopeta|:";
-        getline(cin,toiminta);
-
-        int vanhempi = toiminta.compare("vanhempi");
-        int lapsi = toiminta.compare("lapsi");
-        int lopeta = toiminta.compare("lopeta");
-
-        if(lopeta == 0) {
-            break;
-        } else if (vanhempi == 0) {
-            Vanhempi vanhempi = *new Vanhempi();
-            kysyHenkiloTiedot(vanhempi);
-            kysyOsoiteTiedot(vanhempi);
-
-            perhe.lisaaVanhempi(vanhempi);
-
-
-        } else if(lapsi == 0) {
-            Lapsi lapsi = *new Lapsi();
-            kysyHenkiloTiedot(lapsi);
-            kysyOsoiteTiedot(lapsi);
-
-            perhe.lisaaLapsi(lapsi);
-
-
-        } else {
-            cout << "komentoa ei tunnistettu" << endl;
-            continue;
-        }
-
-    }
-}
 
 

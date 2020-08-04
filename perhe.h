@@ -18,29 +18,28 @@ public:
     int getPerheID();
     void lisaaVanhempi(Vanhempi &vanhempi);
     void poistaVanhempi(Vanhempi &vanhempi);
+    vector<Vanhempi>::iterator etsiVanhempi(string soTu);
 
-    vector<Vanhempi> getListaVanhemmista();
+    //lista<Vanhempi> getListaVanhemmista();
 
 
     void lisaaLapsi(Lapsi &lapsi);
     void poistaLapsi(Lapsi &lapsi);
 
-    vector<Lapsi> getListaLapsista();
+    //vector<Lapsi> getListaLapsista();
 
     void etsiLapsenTiedot(string sotU);
     void etsiLapsenTiedot(string etunimi, string sukunimi);
-    void etsiVanhemmanTiedot(string soTu);
+    void muokkaaVanhemmanTietoja(string soTu);
     void etsiVanhemmanTiedot(string etunimi,string sukunimi);
 
     void tulostaPerhe();
-
+    void tulostaVanhemmat();
+    void tulostaLapset();
 
 private:
     vector<Vanhempi> vanhemmat;
     vector<Lapsi> lapset;
-
-    void tulostaVanhemmat();
-    void tulostaLapset();
 
     string perheenNimi;
     int perheID;

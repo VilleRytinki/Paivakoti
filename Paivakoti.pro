@@ -11,6 +11,7 @@ SOURCES += \
         paivakoti.cpp \
         perhe.cpp \
         stringutils.cpp \
+        tietokantautils.cpp \
         vanhempi.cpp
 
 HEADERS += \
@@ -20,4 +21,5 @@ HEADERS += \
     paivakoti.h \
     perhe.h \
     stringutils.h \
+    tietokantautils.h \
     vanhempi.h

@@ -18,11 +18,15 @@ public:
     string getPaivaKotiID();
 
     void tulostaPaivakoti();
+
     void lisaaPerhe(Perhe &perhe);
-    void etsiPerhe(string nimi);
     void etsiPerhe(int perheID);
-    void poistaPerhe(string nimi);
+    void poistaPerhe(Perhe &perhe);
     void poistaPerhe(int perheID);
+
+   void  muokkaaPerheenTietoja(string nimi);
+
+   vector<Perhe>::iterator etsiPerhe(string nimi);
 
 private:
     string nimi;

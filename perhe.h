@@ -41,12 +41,21 @@ public:
     void tulostaVanhemmat();
     void tulostaLapset();
 
+    inline bool operator == (const Perhe &perhe) {
+        return perhe.perheID == perheID;
+    }
+
+    inline bool operator != (const Perhe &perhe) {
+        return perhe.perheID != perheID;
+    }
+
+    int perheID;
 private:
     vector<Vanhempi> vanhemmat;
     vector<Lapsi> lapset;
 
     string perheenNimi;
-    int perheID;
+
 };
 
 #endif // PERHE_H

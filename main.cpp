@@ -43,7 +43,7 @@ int main()
     while (true) {
 
 
-        cout << "Haluatko lisata perheen, etsia tietokannasta vai poistaa tietoja? Voit myos tulostaa paivakodin asiakkaiden tiedot. \n|lisaa|etsi|poista|lopeta|tulosta|: ";
+        cout << "Haluatko lisata perheen, etsia tietokannasta ja muokata tietoja? Voit myos tulostaa paivakodin asiakkaiden tiedot. \n|lisaa|etsi|lopeta|tulosta|: ";
         getline(cin,toiminta);
 
         if(toiminta == "lopeta") {
@@ -66,30 +66,13 @@ int main()
                 cout << "Anna perheen nimi(esim. Virtanen):" ;
                 getline(cin,perheenNimi);
 
-                paivakoti->etsiPerhe(perheenNimi);
+                paivakoti->muokkaaPerheenTietoja(perheenNimi);
 
             } else if (toiminta == "ID") {
                 cout << "Syota perheen ID(esim. 1):";
                 cin >> perheID;
 
-                paivakoti->etsiPerhe(perheID);
-
-            }
-        } else if (toiminta == "poista") {
-            cout << "Etsitaanko nimella vai ID numerolla? |nimi|ID|:";
-            getline(cin,toiminta);
-
-            if(toiminta == "nimi") {
-                cout << "Anna perheen nimi(esim. Virtanen):" ;
-                getline(cin,perheenNimi);
-
-                paivakoti->poistaPerhe(perheenNimi);
-
-            } else if (toiminta == "ID") {
-                cout << "Syota perheen ID(esim. 1):";
-                cin >> perheID;
-
-                paivakoti->poistaPerhe(perheID);
+                //paivakoti->etsiPerhe(perheID);
 
             }
         } else if (toiminta == "tulosta") {
@@ -105,7 +88,7 @@ int main()
         }
     }
 
-   delete paivakoti;
+    delete paivakoti;
 
     return 0;
 }

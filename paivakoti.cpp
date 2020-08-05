@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <exception>
+#include <algorithm>
 
 
 vector<Perhe>::iterator itrPerhe;
@@ -54,16 +55,10 @@ void Paivakoti::lisaaPerhe(Perhe &perhe) {
     perheet.push_back(perhe);
 }
 
-void Paivakoti::poistaPerhe(string nimi) {
-    //Täällä tapahtuu jotain outoa terminate called after throwing an instance of 'std::bad_alloc'
-    //what():  std::bad_alloc
-    for (itrPerhe = perheet.begin();itrPerhe != perheet.end();itrPerhe++) {
-        if (itrPerhe->getPerheenNimi() == nimi) {
-            perheet.erase(itrPerhe);
-        }
-    }
-}
+void Paivakoti::poistaPerhe(Perhe &perhe) {
+    perheet.erase(std::remove(perheet.begin(),perheet.end(),perhe));
 
+}
 void Paivakoti::poistaPerhe(int perheID) {
     for (itrPerhe = perheet.begin();itrPerhe != perheet.end();itrPerhe++) {
         if (itrPerhe->getPerheID() == perheID) {
@@ -72,36 +67,36 @@ void Paivakoti::poistaPerhe(int perheID) {
     }
 }
 
-void Paivakoti::etsiPerhe(string nimi) {
-    string toiminta;
+vector<Perhe>::iterator Paivakoti::etsiPerhe(string nimi) {
+
+    itrPerhe = perheet.end();
+
+    if(!perheet.empty()) {
+        for(itrPerhe = begin(perheet); itrPerhe != perheet.end();) {
+            if(itrPerhe->getPerheenNimi() == nimi) {
+                return itrPerhe;
+            } else {
+                ++itrPerhe;
+            }
+        }
+    } else {
+        cout << "Perheita ei lisatty.\n";
+    }
+
+    return itrPerhe;
+}
+
+//Tämä ei ole vielä toimintakelpoinen
+/*/void Paivakoti::etsiPerhe(int perheID) {
     int osumia= 0;
+    itrPerhe = perheet.end();
+
     for (itrPerhe = perheet.begin();itrPerhe != perheet.end(); itrPerhe++) {
-        if (itrPerhe->getPerheenNimi() == nimi ){
+        if (itrPerhe->getPerheID() == perheID ){
             itrPerhe->tulostaPerhe();
             osumia++;
 
-            while (true) {
-                cout << "Haluatko lisata perheenjasenen tai muokata henkilotietoja tietoja? |lisaa|muokkaa|peruuta :";
-                getline(cin,toiminta);
-
-                if (toiminta == "peruuta") {
-                    break;
-                } else if (toiminta == "lisaa") {
-                    TietokantaUtils::lisaaHenkilo(*itrPerhe);
-                } else if (toiminta == "muokkaa") {
-                    cout << "Haluatko muokata vanhemman vai lapsen tietoja? |vanhempi|lapsi :";
-                    getline(cin,toiminta);
-                    if (toiminta == "vanhempi") {
-                        string soTu;
-                        itrPerhe->tulostaVanhemmat();
-                        cout << "Syota sen vanhemman sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
-                        getline(cin,soTu);
-                        itrPerhe->muokkaaVanhemmanTietoja(soTu);
-                    } //...tänne lapsen toiminta..
-
-                }
-            }
-
+            muokkaaPerheenTietoja();
         }
     }
 
@@ -109,17 +104,46 @@ void Paivakoti::etsiPerhe(string nimi) {
         cout << "Haetuilla tiedolla ei löytynyt perhetietoja." << endl;
     }
 }
+*/
 
-void Paivakoti::etsiPerhe(int perheID) {
-    int osumia= 0;
-    for (itrPerhe = perheet.begin();itrPerhe != perheet.end(); itrPerhe++) {
-        if (itrPerhe->getPerheID() == perheID ){
-            itrPerhe->tulostaPerhe();
-            osumia++;
+void Paivakoti::muokkaaPerheenTietoja(string nimi) {
+    string toiminta;
+    string soTu;
+
+    itrPerhe = etsiPerhe(nimi);
+    if(itrPerhe != perheet.end()) {
+        itrPerhe->tulostaPerhe();
+
+        while (true) {
+            cout << "Haluatko lisata perheenjasenen tai muokata henkilotietoja? Voit myös poistaa perheen tiedot jarjestelmasta. |lisaa|muokkaa|poista|peruuta :";
+            getline(cin,toiminta);
+
+            if (toiminta == "peruuta") {
+                break;
+            } else if (toiminta == "lisaa") {
+                TietokantaUtils::lisaaHenkilo(*itrPerhe);
+            } else if (toiminta == "muokkaa") {
+                cout << "Haluatko muokata vanhemman vai lapsen tietoja? |vanhempi|lapsi :";
+                getline(cin,toiminta);
+                if (toiminta == "vanhempi") {
+                    itrPerhe->tulostaVanhemmat();
+                    cout << "Syota sen vanhemman sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
+                    getline(cin,soTu);
+                    itrPerhe->muokkaaVanhemmanTietoja(soTu);
+                } else if (toiminta == "lapsi") {
+                    itrPerhe->tulostaLapset();
+                    cout << "Syota sen lapsen sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
+                    getline(cin,soTu);
+                    itrPerhe->muokkaaLapsenTietoja(soTu);
+
+                }
+
+            } else if (toiminta == "poista") {
+                poistaPerhe(*itrPerhe);
+
+            }
         }
-    }
-
-    if(osumia == 0) {
-        cout << "Haetuilla tiedolla ei löytynyt perhetietoja." << endl;
+    } else {
+        cout << "oikeaa ei loytynyt.\n";
     }
 }

@@ -70,9 +70,11 @@ vector<Vanhempi>::iterator Perhe::etsiVanhempi(string soTu) {
     itrVanhemmat = vanhemmat.end();
 
     if(!vanhemmat.empty()) {
-        for (itrVanhemmat = begin(vanhemmat); itrVanhemmat != vanhemmat.end(); itrVanhemmat++) {
+        for (itrVanhemmat = begin(vanhemmat); itrVanhemmat != vanhemmat.end();) {
             if(itrVanhemmat->getSotu() == soTu) {
                 return itrVanhemmat;
+            } else {
+                ++itrVanhemmat;
             }
         }
     } else {
@@ -88,25 +90,24 @@ void Perhe::muokkaaVanhemmanTietoja(string soTu) {
     itrVanhemmat = etsiVanhempi(soTu);
     if(itrVanhemmat != vanhemmat.end()) {
         itrVanhemmat->tulostaHenkiloTiedot();
+        while (true) {
+            cout << "Haluatko poistaa henkilon vai muokata tietoja? |poista|muokkaa|peruuta| :" ;
+            getline(cin,toiminta);
+
+            if (toiminta == "peruuta") {
+                break;
+            } else if (toiminta == "poista") {
+                poistaVanhempi(*itrVanhemmat);
+                if(etsiVanhempi(soTu) == vanhemmat.end()) {
+                    cout << "Vanhempi poistettu. \n";
+                }
+
+            } else if (toiminta == "muokkaa") {
+                TietokantaUtils::kysyHenkiloTiedot(*itrVanhemmat);
+            }
+        }
     } else {
         cout << "oikeaa ei löytynyt.\n";
-    }
-
-    while (true) {
-        cout << "Haluatko poistaa henkilon vai muokata tietoja? |poista|muokkaa|peruuta| :" ;
-        getline(cin,toiminta);
-
-        if (toiminta == "peruuta") {
-            break;
-        } else if (toiminta == "poista") {
-            poistaVanhempi(*itrVanhemmat);
-            if(etsiVanhempi(soTu) == vanhemmat.end()) {
-                cout << "Vanhempi poistettu. \n";
-            }
-
-        } else if (toiminta == "muokkaa") {
-            TietokantaUtils::kysyHenkiloTiedot(*itrVanhemmat);
-        }
     }
 }
 
@@ -168,25 +169,25 @@ void Perhe::muokkaaLapsenTietoja(string soTu) {
     itrLapset = etsiLapsi(soTu);
     if(itrLapset != lapset.end()) {
         itrLapset->tulostaHenkiloTiedot();
+
+        while (true) {
+            cout << "Haluatko poistaa henkilon vai muokata tietoja? |poista|muokkaa|peruuta| :" ;
+            getline(cin,toiminta);
+
+            if (toiminta == "peruuta") {
+                break;
+            } else if (toiminta == "poista") {
+                poistaLapsi(*itrLapset);
+                if(etsiLapsi(soTu) == lapset.end()) {
+                    cout << "Lapsi poistettu. \n";
+                }
+
+            } else if (toiminta == "muokkaa") {
+                TietokantaUtils::kysyHenkiloTiedot(*itrLapset);
+            }
+        }
     } else {
         cout << "oikeaa ei löytynyt.\n";
-    }
-
-    while (true) {
-        cout << "Haluatko poistaa henkilon vai muokata tietoja? |poista|muokkaa|peruuta| :" ;
-        getline(cin,toiminta);
-
-        if (toiminta == "peruuta") {
-            break;
-        } else if (toiminta == "poista") {
-            poistaLapsi(*itrLapset);
-            if(etsiLapsi(soTu) == lapset.end()) {
-                cout << "Lapsi poistettu. \n";
-            }
-
-        } else if (toiminta == "muokkaa") {
-            TietokantaUtils::kysyHenkiloTiedot(*itrLapset);
-        }
     }
 }
 

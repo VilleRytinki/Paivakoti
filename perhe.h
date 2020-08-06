@@ -18,7 +18,7 @@ public:
     int getPerheID();
 
 
-    //lista<Vanhempi> getListaVanhemmista();
+    vector<Vanhempi> getListaVanhemmista();
 
 
     void lisaaLapsi(Lapsi &lapsi);
@@ -26,12 +26,13 @@ public:
     void lisaaVanhempi(Vanhempi &vanhempi);
     void poistaVanhempi(Vanhempi &vanhempi);
 
-    //vector<Lapsi> getListaLapsista();
+    vector<Lapsi> getListaLapsista();
 
     void muokkaaLapsenTietoja(string sotU);
     void etsiLapsenTiedot(string etunimi, string sukunimi);
     void muokkaaVanhemmanTietoja(string soTu);
     void etsiVanhemmanTiedot(string etunimi,string sukunimi);
+
 
     vector<Vanhempi>::iterator etsiVanhempi(string soTu);
 

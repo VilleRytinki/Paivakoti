@@ -1,6 +1,7 @@
 #include "paivakoti.h"
 #include "perhe.h"
 #include "tietokantautils.h"
+#include "stringutils.h"
 
 #include <iostream>
 #include <exception>
@@ -59,13 +60,6 @@ void Paivakoti::poistaPerhe(Perhe &perhe) {
     perheet.erase(std::remove(perheet.begin(),perheet.end(),perhe));
 
 }
-void Paivakoti::poistaPerhe(int perheID) {
-    for (itrPerhe = perheet.begin();itrPerhe != perheet.end();itrPerhe++) {
-        if (itrPerhe->getPerheID() == perheID) {
-            perheet.erase(itrPerhe);
-        }
-    }
-}
 
 vector<Perhe>::iterator Paivakoti::etsiPerhe(string nimi) {
 
@@ -86,64 +80,93 @@ vector<Perhe>::iterator Paivakoti::etsiPerhe(string nimi) {
     return itrPerhe;
 }
 
-//Tämä ei ole vielä toimintakelpoinen
-/*/void Paivakoti::etsiPerhe(int perheID) {
-    int osumia= 0;
+
+vector<Perhe>::iterator Paivakoti::etsiPerhe(int perheID) {
+
     itrPerhe = perheet.end();
 
-    for (itrPerhe = perheet.begin();itrPerhe != perheet.end(); itrPerhe++) {
-        if (itrPerhe->getPerheID() == perheID ){
-            itrPerhe->tulostaPerhe();
-            osumia++;
-
-            muokkaaPerheenTietoja();
+    if(!perheet.empty()) {
+        for (itrPerhe = begin(perheet);itrPerhe != perheet.end();) {
+            if (itrPerhe->getPerheID() == perheID ){
+                return itrPerhe;
+            } else {
+                ++itrPerhe;
+            }
         }
-    }
 
-    if(osumia == 0) {
-        cout << "Haetuilla tiedolla ei löytynyt perhetietoja." << endl;
+    } else {
+        cout << "Perheitä ei lisätty.\n";
     }
+    return itrPerhe;
 }
-*/
+
 
 void Paivakoti::muokkaaPerheenTietoja(string nimi) {
     string toiminta;
     string soTu;
 
+    nimi = soTu = StringUtils::tarkastaTeksti(nimi);
+
     itrPerhe = etsiPerhe(nimi);
     if(itrPerhe != perheet.end()) {
         itrPerhe->tulostaPerhe();
+        muokkaaja();
 
-        while (true) {
-            cout << "Haluatko lisata perheenjasenen tai muokata henkilotietoja? Voit myös poistaa perheen tiedot jarjestelmasta. |lisaa|muokkaa|poista|peruuta :";
-            getline(cin,toiminta);
-
-            if (toiminta == "peruuta") {
-                break;
-            } else if (toiminta == "lisaa") {
-                TietokantaUtils::lisaaHenkilo(*itrPerhe);
-            } else if (toiminta == "muokkaa") {
-                cout << "Haluatko muokata vanhemman vai lapsen tietoja? |vanhempi|lapsi :";
-                getline(cin,toiminta);
-                if (toiminta == "vanhempi") {
-                    itrPerhe->tulostaVanhemmat();
-                    cout << "Syota sen vanhemman sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
-                    getline(cin,soTu);
-                    itrPerhe->muokkaaVanhemmanTietoja(soTu);
-                } else if (toiminta == "lapsi") {
-                    itrPerhe->tulostaLapset();
-                    cout << "Syota sen lapsen sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
-                    getline(cin,soTu);
-                    itrPerhe->muokkaaLapsenTietoja(soTu);
-
-                }
-
-            } else if (toiminta == "poista") {
-                poistaPerhe(*itrPerhe);
-
-            }
-        }
     } else {
         cout << "oikeaa ei loytynyt.\n";
+    }
+}
+
+void Paivakoti::muokkaaPerheenTietoja(int perheID) {
+    string toiminta;
+    string soTu;
+
+    itrPerhe = etsiPerhe(perheID);
+    if(itrPerhe != perheet.end()) {
+        itrPerhe->tulostaPerhe();
+        muokkaaja();
+
+    } else {
+        cout << "oikeaa ei loytynyt.\n";
+    }
+}
+
+void Paivakoti::muokkaaja() {
+    string toiminta;
+    string soTu;
+
+    while (true) {
+        cout << "Haluatko lisata perheenjasenen tai muokata henkilotietoja? Voit myos poistaa perheen tiedot jarjestelmasta. |lisaa|muokkaa|poista|peruuta :";
+        getline(cin,toiminta);
+        toiminta = StringUtils::tarkastaTeksti(toiminta);
+
+        if (toiminta == "PERUUTA") {
+            break;
+        } else if (toiminta == "LISAA") {
+            TietokantaUtils::lisaaHenkilo(*itrPerhe);
+        } else if (toiminta == "MUOKKAA") {
+            cout << "Haluatko muokata vanhemman vai lapsen tietoja? |vanhempi|lapsi :";
+            getline(cin,toiminta);
+            toiminta = StringUtils::tarkastaTeksti(toiminta);
+
+            if (toiminta == "VANHEMPI") {
+                itrPerhe->tulostaVanhemmat();
+                cout << "Syota sen vanhemman sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
+                getline(cin,soTu);
+                soTu = StringUtils::tarkastaTeksti(soTu);
+                itrPerhe->muokkaaVanhemmanTietoja(soTu);
+            } else if (toiminta == "LAPSI") {
+                itrPerhe->tulostaLapset();
+                cout << "Syota sen lapsen sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
+                getline(cin,soTu);
+                soTu = StringUtils::tarkastaTeksti(soTu);
+                itrPerhe->muokkaaLapsenTietoja(soTu);
+
+            }
+
+        } else if (toiminta == "POISTA") {
+            poistaPerhe(*itrPerhe);
+
+        }
     }
 }

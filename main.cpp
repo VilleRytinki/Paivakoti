@@ -10,6 +10,7 @@
 #include "perhe.h"
 #include "paivakoti.h"
 #include "tietokantautils.h"
+#include "stringutils.h"
 
 using namespace std;
 
@@ -72,7 +73,7 @@ int main()
                 cout << "Syota perheen ID(esim. 1):";
                 cin >> perheID;
 
-                //paivakoti->etsiPerhe(perheID);
+                paivakoti->muokkaaPerheenTietoja(perheID);
 
             }
         } else if (toiminta == "tulosta") {

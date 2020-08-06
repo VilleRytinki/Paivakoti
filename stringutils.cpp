@@ -29,10 +29,22 @@ bool StringUtils::pelkkiaNumeroita(string &str) {
     return str.find_first_not_of("0123456789") == std::string::npos;
 }
 
-string StringUtils::tarkastaSoTu(string &soTu) {
-    int koko = soTu.length();
+string StringUtils::tarkastaTeksti(string &teksti) {
+    string siivottu = "";
+    int koko = teksti.length();
     char kirjaimet[koko];
-    putchar(toupper(kirjaimet[0]));//ei jaksa enää.
+
+    //poistetaan välilyönnit
+    for(int i = 0; i < koko; i++) {
+        if(teksti[i] != ' ')
+            siivottu.push_back(teksti[i]);
+    }
+
+    //muutetaan kaikki kirjaimet isoksi
+    for(int i = 0; i < koko; i++) {
+        kirjaimet[i] = toupper(siivottu[i]);
+
+    }
 
 
     return kirjaimet;

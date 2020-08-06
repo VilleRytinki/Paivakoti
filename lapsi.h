@@ -29,9 +29,10 @@ public:
     }
 
 
-    string soTu;
+
 private:
     string ryhma;
+    string soTu;
 };
 
 #endif // LAPSI_H

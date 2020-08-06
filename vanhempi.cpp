@@ -2,6 +2,7 @@
 #include "henkilo.h"
 #include "stringutils.h"
 #include <iostream>
+#include <exception>
 
 Vanhempi::Vanhempi(): Henkilo()
 {
@@ -30,7 +31,7 @@ void Vanhempi::setPuhNro(string &puhNro) {
     if (StringUtils::tarkistaPuhNro(puhNro)) {
         this->puhNro = puhNro;
     } else {
-        cout << "Virhe puhelinnumeron syötteessä, tarkasta numero." << endl;
+        throw invalid_argument("tarkasta puhelinnumero");
     }
 }
 
@@ -44,6 +45,7 @@ void Vanhempi::tulostaHenkiloTiedot() {
 }
 
 void Vanhempi::setSotu(string &soTu) {
+    soTu = StringUtils::tarkastaTeksti(soTu);
     this->soTu = soTu;
 }
 

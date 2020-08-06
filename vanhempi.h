@@ -27,10 +27,11 @@ public:
         return vanhempi.soTu != soTu;
     }
 
-    string soTu;
+    //string soTu;
 
 private:
     string puhNro;
+    string soTu;
 
 };
 

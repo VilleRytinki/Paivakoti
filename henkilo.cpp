@@ -1,6 +1,7 @@
 #include "henkilo.h"
 #include <iostream>
 #include "osoite.h"
+#include "stringutils.h"
 
 Henkilo::Henkilo()
 {
@@ -29,13 +30,13 @@ Henkilo::~Henkilo() {
 
 
 void Henkilo::setEtunimi(string &etunimi){
-    this->etunimi = etunimi;
+    this->etunimi = StringUtils::tarkastaTeksti(etunimi);
 }
 
 string Henkilo::getEtunimi(){return this->etunimi;}
 
 void Henkilo::setSukunimi(string &sukunimi) {
-    this->sukunimi = sukunimi;
+    this->sukunimi = StringUtils::tarkastaTeksti(sukunimi);
 }
 
 string Henkilo::getSukunimi() {return this->sukunimi;}

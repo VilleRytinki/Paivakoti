@@ -11,7 +11,7 @@ public:
 
     static bool tarkistaPuhNro(string &puhNro);
     static bool pelkkiaNumeroita(string &str);
-    static string tarkastaSoTu(string &soTu);
+    static string tarkastaTeksti(string &teksti);
 
 };
 

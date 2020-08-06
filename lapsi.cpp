@@ -1,5 +1,6 @@
 #include "lapsi.h"
 #include <iostream>
+#include "stringutils.h"
 
 Lapsi::Lapsi()
 {
@@ -16,7 +17,7 @@ Lapsi::~Lapsi(){
 }
 
 void Lapsi::setRyhma(string &ryhma) {
-    this->ryhma = ryhma;
+    this->ryhma = StringUtils::tarkastaTeksti(ryhma);
 }
 string Lapsi::getRyhma() {
     return this->ryhma;
@@ -30,7 +31,7 @@ void Lapsi::tulostaHenkiloTiedot(){
 }
 
 void Lapsi::setSotu(string &soTu) {
-    this->soTu = soTu;
+    this->soTu = StringUtils::tarkastaTeksti(soTu);
 }
 
 string Lapsi::getSotu() {return this->soTu;}

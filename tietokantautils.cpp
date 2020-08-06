@@ -3,7 +3,7 @@
 #include "lapsi.h"
 #include "perhe.h"
 #include "osoite.h"
-
+#include "paivakoti.h"
 
 #include <iostream>
 #include <vector>
@@ -20,6 +20,7 @@ string postiNro;
 string paikkaKunta;
 
 Osoite osoite;
+
 
 
 TietokantaUtils::TietokantaUtils()
@@ -71,13 +72,22 @@ void TietokantaUtils::kysyHenkiloTiedot(Vanhempi &henkilo) {
     getline(cin,etunimi);
     cout << "sukunimi: ";
     getline(cin,sukunimi);
-    cout << "puhelinnumero|muodossa xxx-xxxxxxx|: ";
-    getline(cin,puhNro);
 
     henkilo.setSotu(soTu);
     henkilo.setEtunimi(etunimi);
     henkilo.setSukunimi(sukunimi);
-    henkilo.setPuhNro(puhNro);
+
+    while (true) {
+        try {
+            cout << "puhelinnumero|muodossa xxx-xxxxxxx|: ";
+            getline(cin,puhNro);
+            henkilo.setPuhNro(puhNro);
+        } catch (invalid_argument e) {
+            cout << e.what() << "\n";
+            continue;
+        }
+        break;
+   }
 }
 
 void TietokantaUtils::kysyHenkiloTiedot(Lapsi &lapsi) {

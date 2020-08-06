@@ -35,7 +35,7 @@ string Osoite::getPostiNro() {
 }
 
 void Osoite::setPaikkaKunta(string paikkaKunta) {
-    this->paikkaKunta = paikkaKunta;
+    this->paikkaKunta = StringUtils::tarkastaTeksti(paikkaKunta);
 }
 
 string Osoite::getPaikkaKunta() {

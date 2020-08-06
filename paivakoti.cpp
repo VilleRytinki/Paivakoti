@@ -166,6 +166,7 @@ void Paivakoti::muokkaaja() {
 
         } else if (toiminta == "POISTA") {
             poistaPerhe(*itrPerhe);
+            break;
 
         }
     }

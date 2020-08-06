@@ -27,9 +27,12 @@ string Osoite::getKatuOsoite() {
 }
 
 void Osoite::setPostiNro(string postiNro) {
-       this->postiNro = postiNro;
+    if(StringUtils::pelkkiaNumeroita(postiNro)) {
+        this->postiNro = postiNro;
+    } else {
+        throw invalid_argument("Postinumerossa muita kuin numeroita. Tarkasta numero.\n");
+    }
 }
-
 string Osoite::getPostiNro() {
     return this->postiNro;
 }

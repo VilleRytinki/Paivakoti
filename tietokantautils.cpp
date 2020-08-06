@@ -98,7 +98,7 @@ void TietokantaUtils::kysyHenkiloTiedot(Lapsi &lapsi) {
     getline(cin,etunimi);
     cout << "sukunimi: ";
     getline(cin,sukunimi);
-    cout << "Ryhmän nimi: ";
+    cout << "Ryhman nimi: ";
     getline(cin,ryhma);
 
     lapsi.setSotu(soTu);
@@ -110,17 +110,27 @@ void TietokantaUtils::kysyHenkiloTiedot(Lapsi &lapsi) {
 
 void TietokantaUtils::kysyOsoiteTiedot(Henkilo &vanhempi) {
 
+    osoite =*new Osoite();
 
     cout << "\nAnna osoitetiedot:" << endl;
     cout << "Katuosoite: ";
-    //cin.ignore();
     getline(cin,katuOsoite);
-    cout << "Postinumero: ";
-    getline(cin,postiNro);
+    while (true) {
+        try {
+            cout << "Postinumero: ";
+            getline(cin,postiNro);
+            osoite.setPostiNro(postiNro);
+        } catch (invalid_argument e) {
+            cout << e.what();
+            continue;
+        }
+        break;
+    }
     cout << "Paikkakunta: ";
     getline(cin,paikkaKunta);
 
-    osoite =*new Osoite(katuOsoite,postiNro,paikkaKunta);
+    osoite.setKatuOsoite(katuOsoite);
+    osoite.setPaikkaKunta(paikkaKunta);
 
     vanhempi.setOsoite(osoite);
 

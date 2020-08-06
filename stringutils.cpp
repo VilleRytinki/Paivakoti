@@ -12,10 +12,15 @@ bool StringUtils::tarkistaPuhNro(string &puhNro) {
 
 
     //Tarkastetaan, että puhelinnumerossa on oikea määrä elementtejä, sekä varmistetaan, että - merkin sijainti on 3.
-    if (puhNro.size() < 11 || puhNro.size() > 11 || puhNro.find("-") != 3) {
-        tila = false;
+    if(puhNro.size() > 3) {
+        if (puhNro.size() < 11 || puhNro.size() > 11 || puhNro.find("-") != 3) {
+            tila = false;
 
+        }
+    } else {
+        return false;
     }
+
 
     //Tarkastetaan, että numeron alku ja loppuosat sisältävät pelkkiä numeroita.
     if (!(pelkkiaNumeroita(alkuOsa)) || (!(pelkkiaNumeroita(loppuOsa)))) {

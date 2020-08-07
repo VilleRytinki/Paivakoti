@@ -19,7 +19,7 @@ Osoite::~Osoite(){
 }
 
 void Osoite::setKatuOsoite(string katuOsoite) {
-    this->katuOsoite = katuOsoite;
+    this->katuOsoite = StringUtils::asetaKirjaimetIsoksi(katuOsoite);
 }
 
 string Osoite::getKatuOsoite() {

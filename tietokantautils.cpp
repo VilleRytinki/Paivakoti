@@ -48,12 +48,19 @@ void TietokantaUtils::lisaaHenkilo(Perhe& perhe) {
 
 
         } else if(lapsi == 0) {
-            Lapsi lapsi = *new Lapsi();
-            TietokantaUtils::kysyHenkiloTiedot(lapsi);
-            TietokantaUtils::kysyOsoiteTiedot(lapsi);
 
-            perhe.lisaaLapsi(lapsi);
-
+            while (true) {
+                try {
+                    Lapsi lapsi = *new Lapsi();
+                    TietokantaUtils::kysyHenkiloTiedot(lapsi);
+                    TietokantaUtils::kysyOsoiteTiedot(lapsi);
+                    perhe.lisaaLapsi(lapsi);
+                } catch (runtime_error e) {
+                    cout << e.what();
+                    continue;
+                }
+                break;
+            }
 
         } else {
             cout << "komentoa ei tunnistettu" << endl;

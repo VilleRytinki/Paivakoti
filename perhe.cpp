@@ -19,7 +19,6 @@ Perhe::Perhe(string perheenNimi) {
 }
 
 Perhe::~Perhe() {
-    cout << "Perhe tuhottu" << endl;
 }
 
 void Perhe::setPerheenNimi(string &perheenNimi) {
@@ -43,7 +42,17 @@ vector<Vanhempi> Perhe::getListaVanhemmista() {
 }
 
 void Perhe::lisaaVanhempi(Vanhempi &vanhempi) {
-    vanhemmat.push_back(vanhempi);
+    int osumia = 0;
+
+    for(itrVanhemmat = begin(vanhemmat); itrVanhemmat != vanhemmat.end(); itrVanhemmat++) {
+        if(itrVanhemmat->getSotu() == vanhempi.getSotu()) {
+            throw runtime_error("Perheessa on jo lapsi syotetylla sosiaaliturvatunnuksella.\n");
+            osumia++;
+        }
+    }
+    if(osumia == 0) {
+        vanhemmat.push_back(vanhempi);
+    }
 }
 
 void Perhe::poistaVanhempi(Vanhempi &vanhempi) {
@@ -122,8 +131,20 @@ vector<Lapsi> Perhe::getListaLapsista() {
 }
 
 void Perhe::lisaaLapsi(Lapsi &lapsi) {
-    lapset.push_back(lapsi);
+    int osumia = 0;
+
+    for(itrLapset = begin(lapset); itrLapset != lapset.end(); itrLapset++) {
+        if(itrLapset->getSotu() == lapsi.getSotu()) {
+            throw runtime_error("Perheessa on jo lapsi syotetylla sosiaaliturvatunnuksella.\n");
+            osumia++;
+        }
+    }
+    if(osumia == 0) {
+        lapset.push_back(lapsi);
+    }
 }
+
+
 
 void Perhe::poistaLapsi(Lapsi &lapsi) {
     lapset.erase(remove(lapset.begin(),lapset.end(),lapsi));

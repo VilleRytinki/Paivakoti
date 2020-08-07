@@ -21,9 +21,10 @@ Paivakoti::Paivakoti(string nimi, string paivaKotiID) {
    setNimi(nimi);
    setID(paivaKotiID);
 }
+
 Paivakoti::~Paivakoti() {
-    cout << "Päiväkoti tuhottu" << endl;
 }
+
 void Paivakoti::setNimi(string nimi) {
     this->nimi = nimi;
 }
@@ -46,6 +47,8 @@ void Paivakoti::tulostaPaivakoti() {
     }
 
     for (itrPerhe = perheet.begin();itrPerhe != perheet.end();itrPerhe++) {
+        cout << "Paivakoti: " << getNimi() << endl;
+        cout << "Paivakoti ID: " << getPaivaKotiID() << endl;
         itrPerhe->tulostaPerhe();
 
     }

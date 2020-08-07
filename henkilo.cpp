@@ -25,7 +25,6 @@ Henkilo::Henkilo(string etunimi, string sukunimi, Osoite &osoite) {
 }
 
 Henkilo::~Henkilo() {
-    cout << "Henkilö tuhottu." << endl;
 }
 
 

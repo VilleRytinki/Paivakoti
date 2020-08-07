@@ -13,7 +13,6 @@ Lapsi::Lapsi(string soTu, string etunimi, string sukunimi,string ryhma):Henkilo(
 }
 
 Lapsi::~Lapsi(){
-    cout << "Lapsi tuhottu." << endl;
 }
 
 void Lapsi::setRyhma(string &ryhma) {

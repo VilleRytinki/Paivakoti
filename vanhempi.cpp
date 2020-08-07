@@ -23,7 +23,6 @@ Vanhempi::Vanhempi(string soTu, string etunimi, string sukunimi, string puhNro, 
 }
 
 Vanhempi::~Vanhempi() {
-    cout << "Vanhempi tuhottu." << endl;
 }
 
 

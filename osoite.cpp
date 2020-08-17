@@ -15,7 +15,6 @@ Osoite::Osoite(string katuOsoite, string postiNro, string paikkaKunta) {
 }
 
 Osoite::~Osoite(){
-    cout << "osoite tuhottu" << endl;
 }
 
 void Osoite::setKatuOsoite(string katuOsoite) {

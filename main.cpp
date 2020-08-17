@@ -46,10 +46,11 @@ int main()
 
         cout << "Haluatko lisata perheen, etsia tietokannasta ja muokata tietoja? Voit myos tulostaa paivakodin asiakkaiden tiedot. \n|lisaa|etsi|lopeta|tulosta|: ";
         getline(cin,toiminta);
+        toiminta = StringUtils::tarkastaTeksti(toiminta);
 
-        if(toiminta == "lopeta") {
+        if(toiminta == "LOPETA") {
             break;
-        } else if (toiminta == "lisaa") {
+        } else if (toiminta == "LISAA") {
             cout << "Anna perheen nimi(esim. Virtanen):" ;
             getline(cin,perheenNimi);
 
@@ -59,11 +60,12 @@ int main()
 
             paivakoti->lisaaPerhe(perhe);
 
-        } else if (toiminta == "etsi") {
+        } else if (toiminta == "ETSI") {
             cout << "Etsitaankö nimella vai ID numerolla? |nimi|ID|:";
             getline(cin,toiminta);
+            toiminta = StringUtils::tarkastaTeksti(toiminta);
 
-            if(toiminta == "nimi") {
+            if(toiminta == "NIMI") {
                 cout << "Anna perheen nimi(esim. Virtanen):" ;
                 getline(cin,perheenNimi);
 
@@ -76,7 +78,7 @@ int main()
                 paivakoti->muokkaaPerheenTietoja(perheID);
 
             }
-        } else if (toiminta == "tulosta") {
+        } else if (toiminta == "TULOSTA") {
             try {
                 paivakoti->tulostaPaivakoti();
             } catch (runtime_error e) {

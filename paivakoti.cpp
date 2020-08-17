@@ -156,13 +156,11 @@ void Paivakoti::muokkaaja() {
                 itrPerhe->tulostaVanhemmat();
                 cout << "Syota sen vanhemman sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
                 getline(cin,soTu);
-                soTu = StringUtils::tarkastaTeksti(soTu);
                 itrPerhe->muokkaaVanhemmanTietoja(soTu);
             } else if (toiminta == "LAPSI") {
                 itrPerhe->tulostaLapset();
                 cout << "Syota sen lapsen sosiaaliturvatunnus jonka tietoja haluat muuttaa :";
                 getline(cin,soTu);
-                soTu = StringUtils::tarkastaTeksti(soTu);
                 itrPerhe->muokkaaLapsenTietoja(soTu);
 
             }

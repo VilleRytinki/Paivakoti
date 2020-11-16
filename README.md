@@ -1,7 +1,7 @@
 # Paivakoti
-C++ -kurssin lopputyö.
+C++ -kurssin lopputyö. Tehty Qt -ohjelmistokehitystyökalulla.
 
-Tämä ohjelma ylläpitää päiväkodin asiakkaiden perhetietoja. !VÄLTÄTHÄN ÄÄKKÖSTEN JA ÖÖKKÖSTEN KÄYTTÖÄ!
+Tämä ohjelma ylläpitää päiväkodin asiakkaiden perhetietoja. 
 Anna ohjelman alussa päiväkodin nimi ja ID numero.
 
 lisaa -komennolla lisäät perheen tietokantaan. Anna ensin perheen nimi, jonka jälkeen ohjelma kysyy haluatko lisätä vanhemman vai lapsen. Syötettyäsi kaikki haluamasi henkilötiedot voit palata edelliseen ruutuun peruuta -komennolla.
